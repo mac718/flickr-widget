@@ -1,0 +1,22 @@
+<h1>Flickr Widget</h1>
+
+<div class="row">
+  <div class="col-md-4 offset-md-4">
+    <%= form_for :photostream, url: '/home', :html => { :method => 'GET' } do |f| %>
+      <%= f.label :id, 'Enter Your Flickr Username:' %>
+      <%= f.text_field :id, class: 'form-control' %>
+
+      <%= f.submit 'Download photos', class: 'btn btn-primary' %>
+    <% end %>
+
+    <ul>
+      <% if @photos %>
+        <% @photos.parsed_response['rsp']['photos']['photo'].each do |photo| %>
+          <li>
+            <%= image_tag("https://farm#{photo['farm']}.staticflickr.com/#{photo['server']}/#{photo['id']}_#{photo['secret']}.jpg") %>
+          </li>
+        <% end %>
+      <% end %>
+    </ul>
+  </div>
+</div>
